@@ -1,0 +1,70 @@
+version: '3.3'
+
+services:
+
+  mosquitto:
+    image: eclipse-mosquitto:${MOSQUITTO_VERSION}
+    ports:
+      - "${IOTA_MQTT_PORT}:${IOTA_MQTT_PORT}"
+    deploy:
+      mode: replicated
+      restart_policy:
+        condition: on-failure
+      update_config:
+        parallelism: 1
+    configs:
+      - source: mosquitto_conf
+        target: /mosquitto/config/mosquitto.conf
+    networks:
+      - backend
+    volumes:
+      - mosquittodata:/mosquitto/data
+
+  iotagent:
+    image: fiware/iotagent-json:1.6.0
+    ports:
+      # Agent HTTP transport port (Southbound)
+      - "${IOTA_HTTP_PORT}:${IOTA_HTTP_PORT}"
+      # Agent Northbound port
+      - "${IOTA_NORTH_PORT}:${IOTA_NORTH_PORT}"
+    deploy:
+      mode: replicated
+      restart_policy:
+        condition: on-failure
+    configs:
+      - source: iota-json-conf
+        target: /opt/iotajson/config.js  # As per current IOTA Dockerfile
+    environment:
+      - IOTA_MQTT_HOST=${IOTA_MQTT_HOST}
+      - IOTA_MQTT_PORT=${IOTA_MQTT_PORT}
+      - IOTA_LOG_LEVEL=${IOTA_LOG_LEVEL}
+      - IOTA_TIMESTAMP=${IOTA_TIMESTAMP}
+      - IOTA_CB_HOST=${IOTA_CB_HOST}
+      - IOTA_CB_PORT=${IOTA_CB_PORT}
+      - IOTA_NORTH_PORT=${IOTA_NORTH_PORT}
+      - IOTA_REGISTRY_TYPE=${IOTA_REGISTRY_TYPE}
+      - IOTA_MONGO_HOST=${IOTA_MONGO_HOST}
+      - IOTA_MONGO_PORT=${IOTA_MONGO_PORT}
+      - IOTA_MONGO_DB=${IOTA_MONGO_DB}
+      - IOTA_MONGO_REPLICASET=${IOTA_MONGO_REPLICASET}
+      - IOTA_HTTP_PORT=${IOTA_HTTP_PORT}
+      - IOTA_PROVIDER_URL=${IOTA_PROVIDER_URL}
+    networks:
+      - backend
+
+configs:
+  mosquitto_conf:
+    file: ./mosquitto.conf
+  iota-json-conf:
+    file: ./config.js
+
+volumes:
+  mosquittodata:
+
+networks:
+  default:
+    driver_opts:
+      com.docker.network.driver.mtu: ${DOCKER_MTU}
+
+  backend:
+    external: true
