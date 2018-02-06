@@ -1,0 +1,6 @@
+# TODO: Fill in properly
+name: cygnus
+version: 1.0.0
+description: Cygnus
+protocol_type: HTTP
+ngsi_version: 1
