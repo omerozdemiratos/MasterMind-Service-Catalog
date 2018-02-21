@@ -5,9 +5,9 @@ services:
     image: fiware/cygnus-ngsi
     environment:
         # - CYGNUS_LOG_LEVEL=DE0BUG  # Keep for debugging
-      - CYGNUS_MYSQL_HOST=${CYGNUS_MYSQL_HOST-mysql}
-      - CYGNUS_MYSQL_USER=${CYGNUS_MYSQL_USER-root}
-      - CYGNUS_MYSQL_PASS=${CYGNUS_MYSQL_PASS-mypassword}
+      - CYGNUS_MYSQL_HOST=${CYGNUS_MYSQL_HOST}
+      - CYGNUS_MYSQL_USER=${CYGNUS_MYSQL_USER}
+      - CYGNUS_MYSQL_PASS=${CYGNUS_MYSQL_PASS}
     depends_on:
       - mysql
     ports:
@@ -26,7 +26,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=${CYGNUS_MYSQL_PASS-mypassword}
+      - MYSQL_ROOT_PASSWORD=${CYGNUS_MYSQL_PASS}
     networks:
       - backend
 
@@ -39,12 +39,12 @@ configs:
 networks:
   default:
     driver_opts:
-      com.docker.network.driver.mtu: ${DOCKER_MTU:-1400}
+      com.docker.network.driver.mtu: ${DOCKER_MTU}
   frontend:
     driver: overlay
     driver_opts:
-      com.docker.network.driver.mtu: ${DOCKER_MTU:-1400}
+      com.docker.network.driver.mtu: ${DOCKER_MTU}
   backend:
     driver: overlay
     driver_opts:
-      com.docker.network.driver.mtu: ${DOCKER_MTU:-1400}
+      com.docker.network.driver.mtu: ${DOCKER_MTU}
