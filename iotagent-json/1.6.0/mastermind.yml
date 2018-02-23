@@ -78,7 +78,7 @@ environment_variables:
     default: rs
   - variable: IOTA_PROVIDER_URL
     name: IoT Agent Provider URL
-    description: The URL for the IoT Agent. THE HOSTNAME SHOULD MATCH THE NAME OF THIS SERVICE
+    description: The URL for the IoT Agent. THE HOSTNAME SHOULD MATCH THE NAME OF THIS SERVICE OR THE ENDPOINT OF THE CLUSTER BEING USED
     required: true
     managed: true
     default: http://agent:4041

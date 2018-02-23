@@ -6,7 +6,7 @@ ngsi_version: 1
 environment_variables:
   - variable: CYGNUS_MYSQL_HOST
     name: MySQL Host
-    description: MySQL Host to use. It should be mysql in this recipe.
+    description: MySQL Host to use. This recipe launches its own MySQL database, so the default value will work. If the user wants to use a different MySQL database, change this
     required: true
     managed: true
     default: mysql

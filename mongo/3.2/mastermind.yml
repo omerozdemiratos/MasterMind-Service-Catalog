@@ -24,7 +24,7 @@ environment_variables:
     default: backend
   - variable: STACK_NAME
     name: Stack Name
-    description: The name to use for the mongo Docker stack. THIS NEEDS TO MATCH THE NAME OF THE SERVICE
+    description: The name to use for the mongo Docker stack. THIS NEEDS TO MATCH THE NAME OF THIS MONGO SERVICE
     required: true
     managed: true
     default: mongo
