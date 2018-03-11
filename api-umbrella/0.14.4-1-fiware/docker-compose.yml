@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  umbrella:
+    image: martel/api-umbrella:0.14.4-1-fiware
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/api-umbrella
+      - /opt/api-umbrella/var/log
+      - /opt/api-umbrella/var/db
