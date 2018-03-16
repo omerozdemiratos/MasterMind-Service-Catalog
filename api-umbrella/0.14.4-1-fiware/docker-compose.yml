@@ -6,7 +6,3 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - /etc/api-umbrella
-      - /opt/api-umbrella/var/log
-      - /opt/api-umbrella/var/db
